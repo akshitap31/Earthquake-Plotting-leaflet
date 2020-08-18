@@ -3,6 +3,7 @@ var myMap = L.map("map", {
   center: [37.09, -95.71],
   zoom: 5
 });
+var key=API_KEY
   // Adding tile layer
   L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
   attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
@@ -10,33 +11,33 @@ var myMap = L.map("map", {
     maxZoom: 18,
     zoomOffset: -1,
     id: "light-v10",
-    accessToken: API_KEY
+    accessToken: key
   }).addTo(myMap);
   
   var light = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "light-v10",
-    accessToken: API_KEY
+    accessToken: key
   });
   
   var dark = L.tileLayer("https://api.mapbox.com/styles/v1/mapbox/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
     maxZoom: 18,
     id: "dark-v10",
-    accessToken: API_KEY
+    accessToken: key
   });
   var satelite= L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     maxZoom: 18,
     id: "mapbox/satellite-v9",
-    accessToken: API_KEY
+    accessToken: key
   });
   var outdoors=L.tileLayer("https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}", {
     attribution: "© <a href='https://www.mapbox.com/about/maps/'>Mapbox</a> © <a href='http://www.openstreetmap.org/copyright'>OpenStreetMap</a> <strong><a href='https://www.mapbox.com/map-feedback/' target='_blank'>Improve this map</a></strong>",
     maxZoom: 18,
     id: "mapbox/outdoors-v11",
-    accessToken: API_KEY
+    accessToken: key
   });
   // Only one base layer can be shown at a time
   var baseMaps = {
@@ -88,21 +89,23 @@ function createCircles(data) {
 };
 var platesData= []
   function plates(d){
+
     for(var i=0; i< d["features"].length; i++){
       var earthquake= d["features"][i];
+      // console.log(earthquake)
       var coord=earthquake["geometry"]["coordinates"];
-      for(var j=0; j < coord[i].length; j++){
+      // console.log(coord.length)
+      for(var j=0; j < coord.length; j++){
         var coordinates=[]
+        console.log(coordinates)
         coordinates.push([coord[j][1], coord[j][0]])
         platesData.push(L.polyline(coordinates, {
           color: "blue",
-          fillColor: "none",
+          // fillColor: "none",
           fillOpacity: 0.9}))
       }
 }
 };
-
-
 // Set up the legend
 var color = ["#80eb34", "#f0fc7e", "#f5e102", "#f5b20a", "#e86835", "#e63c30" ];
 var legend = L.control({
@@ -126,8 +129,16 @@ legend.onAdd = function () {
 legend.addTo(myMap);
 
 //Calling the data
-d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json", plates)
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/significant_month.geojson", createCircles)
+d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json", data => {
+  console.log(data);
+  plates(data);
+})
+
+// document.getElementsByClassName("myBtn").addEventListener("click", function () {
+
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson", createCircles)
+// })
+
 
 //Overlays
 var earthquakes = L.layerGroup(earthquakeData);
