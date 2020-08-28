@@ -24,4 +24,4 @@ Map in different tile layers:
 
 ## Data Source
 * [USGS GeoJSON Feed](http://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php)
-* [Plates Data](https://github.com/fraxen/tectonicplates)
+<!-- * [Plates Data](https://github.com/fraxen/tectonicplates) -->
