@@ -13,9 +13,10 @@ This project creates a visualisation map of the USGS's earthquake data using Map
 1. Download index.html and assets folder
 2. On your system, Go to assets -> js -> logic.js, in the 6th line, enter "your mapbox API key", in place of API_KEY, save the file 
 3. Open our terminal and cd into the folder you saved the files in, run the command "python -m http.server"
-4. Go to your browser, go to the path "localhost:8000", you will see the map, move the map to see earthquake plots, click on the box at the top right corner of the map to add fault lines or change map tiles, click on plots to see more details of the earthquake.  
+4. Go to your browser, go to the path "localhost:8000", you will see the map, move the map to see earthquake plots, click on the box at the top right corner of the map to change map tiles, click on plots to see details of the earthquake.  
 
 ## Output
+Map in different tile layers:
 
 ![](images/1.png)
 

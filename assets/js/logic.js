@@ -87,25 +87,24 @@ function createCircles(data) {
           }).bindPopup("<h1>" + earthquake.properties.place + "</h1> <hr> <h3>Type: " + earthquake.properties.type + "</h3> <h3>Magnitude: " + mag + "</h3>").addTo(myMap))
         }
 };
-var platesData= []
-  function plates(d){
-
-    for(var i=0; i< d["features"].length; i++){
-      var earthquake= d["features"][i];
-      // console.log(earthquake)
-      var coord=earthquake["geometry"]["coordinates"];
-      // console.log(coord.length)
-      for(var j=0; j < coord.length; j++){
-        var coordinates=[]
-        console.log(coordinates)
-        coordinates.push([coord[j][1], coord[j][0]])
-        platesData.push(L.polyline(coordinates, {
-          color: "blue",
-          // fillColor: "none",
-          fillOpacity: 0.9}))
-      }
-}
-};
+// var platesData= []
+// function plates(d){
+//     for(var i=0; i< d["features"].length; i++){
+//       var earthquake= d["features"][i];
+//       // console.log(earthquake)
+//       var coord=earthquake["geometry"]["coordinates"];
+//       // console.log(coord.length)
+//       for(var j=0; j < coord.length; j++){
+//         var coordinates=[]
+//         console.log(coordinates)
+//         coordinates.push([coord[j][1], coord[j][0]])
+//         platesData.push(L.polyline(coordinates, {
+//           color: "blue",
+//           // fillColor: "none",
+//           fillOpacity: 0.9}))
+//       }
+// }
+// };
 // Set up the legend
 var color = ["#80eb34", "#f0fc7e", "#f5e102", "#f5b20a", "#e86835", "#e63c30" ];
 var legend = L.control({
@@ -129,23 +128,22 @@ legend.onAdd = function () {
 legend.addTo(myMap);
 
 //Calling the data
-d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json", data => {
-  console.log(data);
-  plates(data);
-})
+// d3.json("https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json", plates);
+// data => {
+//   console.log(data);
+//   plates(data);
+// })
 
 // document.getElementsByClassName("myBtn").addEventListener("click", function () {
 
 d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson", createCircles)
-// })
-
 
 //Overlays
 var earthquakes = L.layerGroup(earthquakeData);
-var faultlines= L.layerGroup(platesData);
+// var faultlines= L.layerGroup(platesData);
 // Overlays that may be toggled on or off
-var overlayMaps = {
-  Earthquake: earthquakes,
-  FaultLines: faultlines
-};
-L.control.layers(baseMaps, overlayMaps).addTo(myMap);
+// var overlayMaps = {
+//   Earthquake: earthquakes,
+//   // FaultLines: faultlines
+// };
+L.control.layers(baseMaps).addTo(myMap);
