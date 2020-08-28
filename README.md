@@ -1,4 +1,4 @@
-# Earthquake and Fault Lines with Leaflet
+# Earthquake with Leaflet
 The United States Geological Survey's (USGS) collect a massive amount of data from all over the world each day, visualizing their data will help better educate the public on issues facing our planet.
 This project creates a visualisation map of the USGS's earthquake data using Mapbox API and Leaflet.js that will help users understand easily the locations where there are more chances of a earthquake, and information like fault lines, magnitude and location of previous earthquakes.
 
